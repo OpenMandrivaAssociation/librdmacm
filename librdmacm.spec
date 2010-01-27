@@ -1,6 +1,3 @@
-%define lib_name_orig lib%{name}
-%define major 1
-%define lib_name %mklibname %name%{major}
 
 Name:	librdmacm
 Version: 1.0.11
@@ -16,13 +13,13 @@ BuildRequires: libibverbs-devel >= 1.1 autoconf
 %description 
 librdmacm provides a userspace RDMA Communication Managment API.
 
-%package -n %{lib_name}-devel
+%package devel
 Summary: Development files for the librdmacm library
 Group: Development/Other
 provides: lib%{name}-devel = %{version}-%{release}
 provides: %{name}-devel = %{version}-%{release}
 
-%description -n %{lib_name}-devel
+%description devel
 Development files for the librdmacm library.
 
 %package utils
@@ -32,14 +29,14 @@ Group: Development/Other
 %description utils
 Example test programs for the librdmacm library.
 
-%package -n %{lib_name}-static
+%package static
 Summary: Static version of the librdmacm library
 Group: Development/Other
 Requires: %{name}-devel = %{version}-%{release}
 provides: lib%{name}-static = %{version}-%{release}
 provides: %{name}-static = %{version}-%{release}
 
-%description -n %{lib_name}-static
+%description static
 Static version of the librdmacm library.
 
 %prep
@@ -67,7 +64,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/librdmacm*.so.*
 %doc AUTHORS COPYING ChangeLog README
 
-%files -n %{lib_name}-devel
+%files -n devel
 %defattr(-,root,root)
 %{_libdir}/lib*.so
 %{_includedir}/*
@@ -79,7 +76,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/*
 %{_mandir}/man1/*
 
-%files -n %{lib_name}-static
+%files -n static
 %defattr(-,root,root,-)
 %{_libdir}/*.a
 
