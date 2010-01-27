@@ -64,7 +64,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/librdmacm*.so.*
 %doc AUTHORS COPYING ChangeLog README
 
-%files -n devel
+%files devel
 %defattr(-,root,root)
 %{_libdir}/lib*.so
 %{_includedir}/*
@@ -76,7 +76,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/*
 %{_mandir}/man1/*
 
-%files -n static
+%files static
 %defattr(-,root,root,-)
 %{_libdir}/*.a
 
