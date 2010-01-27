@@ -5,8 +5,8 @@
 Name:	librdmacm
 Version: 1.0.11
 Release: %mkrel 1
-Summary: Userspace RDMA Connection Manager.
-Group: System Environment/Libraries
+Summary: Userspace RDMA Connection Manager
+Group: Development/Other
 License: GPL/BSD
 Url: http://www.openfabrics.org/
 Source: http://www.openfabrics.org/downloads/librdmacm/%{name}-%{version}.tar.gz
@@ -18,7 +18,7 @@ librdmacm provides a userspace RDMA Communication Managment API.
 
 %package -n %{lib_name}-devel
 Summary: Development files for the librdmacm library
-Group: System Environment/Libraries
+Group: Development/Other
 provides: lib%{name}-devel = %{version}-%{release}
 provides: %{name}-devel = %{version}-%{release}
 
@@ -27,14 +27,14 @@ Development files for the librdmacm library.
 
 %package utils
 Summary: Examples for the librdmacm library
-Group: System Environment/Libraries
+Group: Development/Other
 
 %description utils
 Example test programs for the librdmacm library.
 
 %package -n %{lib_name}-static
 Summary: Static version of the librdmacm library
-Group: System Environment/Libraries
+Group: Development/Other
 Requires: %{name}-devel = %{version}-%{release}
 provides: lib%{name}-static = %{version}-%{release}
 provides: %{name}-static = %{version}-%{release}
