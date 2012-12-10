@@ -1,13 +1,12 @@
 
 Name:	librdmacm
 Version: 1.0.11
-Release: %mkrel 3
+Release: 4
 Summary: Userspace RDMA Connection Manager
 Group: Development/Other
 License: GPL/BSD
 Url: http://www.openfabrics.org/
 Source: http://www.openfabrics.org/downloads/librdmacm/%{name}-%{version}.tar.gz
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: libibverbs-devel >= 1.1 autoconf
 
 %description 
@@ -43,18 +42,16 @@ Static version of the librdmacm library.
 %setup -q 
 
 %build
+export LDFLAGS="-lpthread"
 autoreconf
 %configure
 %make
 
 %install
-rm -rf $RPM_BUILD_ROOT
 %makeinstall
 # remove unpackaged files from the buildroot
-rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 
 %clean
-rm -rf $RPM_BUILD_ROOT
 
 %post -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
@@ -79,4 +76,23 @@ rm -rf $RPM_BUILD_ROOT
 %files static
 %defattr(-,root,root,-)
 %{_libdir}/*.a
+
+
+
+%changelog
+* Sun Dec 05 2010 Oden Eriksson <oeriksson@mandriva.com> 1.0.11-3mdv2011.0
++ Revision: 609776
+- rebuild
+
+* Wed Jan 27 2010 Antoine Ginies <aginies@mandriva.com> 1.0.11-2mdv2010.1
++ Revision: 497205
+- bump the release
+- fix typo
+- the name already contains the lib prefix
+
+* Wed Jan 27 2010 Antoine Ginies <aginies@mandriva.com> 1.0.11-1mdv2010.1
++ Revision: 497200
+- fix some pb in spec file (import from fedora one)
+- import librdmacm
+
 
