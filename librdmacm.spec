@@ -43,7 +43,7 @@ Static version of the librdmacm library.
 
 %build
 export LDFLAGS="-lpthread"
-autoreconf
+#autoreconf
 %configure
 %make
 
