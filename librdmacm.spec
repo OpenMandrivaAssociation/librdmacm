@@ -7,7 +7,10 @@ Group: Development/Other
 License: GPL/BSD
 Url: http://www.openfabrics.org/
 Source: http://www.openfabrics.org/downloads/librdmacm/%{name}-%{version}.tar.gz
-BuildRequires: libibverbs-devel >= 1.1 autoconf
+Source100: librdmacm.rpmlintrc
+Patch0: librdmacm-1.0.16-automake1.13.patch
+BuildRequires: libibverbs-devel >= 1.1
+BuildRequires: autoconf
 
 %description 
 librdmacm provides a userspace RDMA Communication Managment API.
@@ -40,10 +43,11 @@ Static version of the librdmacm library.
 
 %prep
 %setup -q 
+%patch0 -p0 -b.automake113
 
 %build
 export LDFLAGS="-lpthread"
-#autoreconf
+autoreconf
 %configure
 %make
 
@@ -59,11 +63,13 @@ export LDFLAGS="-lpthread"
 %files 
 %defattr(-,root,root,-)
 %{_libdir}/librdmacm*.so.*
+%{_libdir}/rsocket/librspreload.so.*
 %doc AUTHORS COPYING ChangeLog README
 
 %files devel
 %defattr(-,root,root)
 %{_libdir}/lib*.so
+%{_libdir}/rsocket/lib*.so
 %{_includedir}/*
 %{_mandir}/man3/*
 %{_mandir}/man7/*
@@ -76,7 +82,7 @@ export LDFLAGS="-lpthread"
 %files static
 %defattr(-,root,root,-)
 %{_libdir}/*.a
-
+%{_libdir}/rsocket/*.a
 
 
 %changelog
