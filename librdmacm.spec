@@ -1,28 +1,39 @@
+%define major 1
+%define libname %mklibname rdmacm %{major}
+%define devname %mklibname -d rdmacm
+%define static %mklibname -s rdmacm
 
-Name:	librdmacm
-Version: 1.0.16
-Release: 1
-Summary: Userspace RDMA Connection Manager
-Group: Development/Other
-License: GPL/BSD
-Url: http://www.openfabrics.org/
-Source: http://www.openfabrics.org/downloads/librdmacm/%{name}-%{version}.tar.gz
-Source100: librdmacm.rpmlintrc
-Patch0: librdmacm-1.0.16-automake1.13.patch
-BuildRequires: libibverbs-devel >= 1.1
-BuildRequires: autoconf
+Name:		librdmacm
+Version:	1.0.17
+Release:	1
+Summary:	Userspace RDMA Connection Manager
+Group:		Development/Other
+License:	GPL/BSD
+Url:		http://www.openfabrics.org/
+Source0:	http://www.openfabrics.org/downloads/librdmacm/%{name}-%{version}.tar.gz
+#Source100: librdmacm.rpmlintrc
+BuildRequires:	libibverbs-devel >= 1.1
+BuildRequires:	autoconf
 
 %description 
 librdmacm provides a userspace RDMA Communication Managment API.
 
-%package devel
-Summary: Development files for the librdmacm library
-Group: Development/Other
-provides: lib%{name}-devel = %{version}-%{release}
-provides: %{name}-devel = %{version}-%{release}
+%package -n	%{devname}
+Summary:	Development files for the librdmacm library
+Group:		Development/Other
+Requires:	%{libname} = %{version}-%{release}
+Provides:	rdmacm-devel = %{version}-%{release}
+Provides:	%{name}-devel = %{version}-%{release}
 
-%description devel
+%description -n %{devname}
 Development files for the librdmacm library.
+
+%package -n	%{libname}
+Summary:	Userspace RDMA Connection Manager
+Group:		System/Libraries
+
+%description -n %{libname}
+librdmacm provides a userspace RDMA Communication Managment API.
 
 %package utils
 Summary: Examples for the librdmacm library
@@ -31,43 +42,35 @@ Group: Development/Other
 %description utils
 Example test programs for the librdmacm library.
 
-%package static
-Summary: Static version of the librdmacm library
-Group: Development/Other
-Requires: %{name}-devel = %{version}-%{release}
-provides: lib%{name}-static = %{version}-%{release}
-provides: %{name}-static = %{version}-%{release}
+%package -n	%{static}
+Summary:	Static version of the librdmacm library
+Group:		Development/Other
+Requires:	%{devname} = %{version}-%{release}
+Provides:	%{name}-static = %{version}-%{release}
+Provides:	rdmacm-static-devel = %{version}-%{release}
 
-%description static
+%description -n %{static}
 Static version of the librdmacm library.
 
 %prep
 %setup -q 
-%patch0 -p0 -b.automake113
 
 %build
 export LDFLAGS="-lpthread"
 autoreconf
-%configure
+%configure --enable-static
 %make
 
 %install
 %makeinstall
 # remove unpackaged files from the buildroot
 
-%clean
-
-%post -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
-
-%files 
-%defattr(-,root,root,-)
+%files -n %{libname}
 %{_libdir}/librdmacm*.so.*
 %{_libdir}/rsocket/librspreload.so.*
-%doc AUTHORS COPYING ChangeLog README
 
-%files devel
-%defattr(-,root,root)
+%files -n %{devname}
+%doc AUTHORS COPYING ChangeLog README
 %{_libdir}/lib*.so
 %{_libdir}/rsocket/lib*.so
 %{_includedir}/*
@@ -75,30 +78,9 @@ autoreconf
 %{_mandir}/man7/*
 
 %files utils
-%defattr(-,root,root,-)
 %{_bindir}/*
 %{_mandir}/man1/*
 
-%files static
-%defattr(-,root,root,-)
+%files -n %{static}
 %{_libdir}/*.a
 %{_libdir}/rsocket/*.a
-
-
-%changelog
-* Sun Dec 05 2010 Oden Eriksson <oeriksson@mandriva.com> 1.0.11-3mdv2011.0
-+ Revision: 609776
-- rebuild
-
-* Wed Jan 27 2010 Antoine Ginies <aginies@mandriva.com> 1.0.11-2mdv2010.1
-+ Revision: 497205
-- bump the release
-- fix typo
-- the name already contains the lib prefix
-
-* Wed Jan 27 2010 Antoine Ginies <aginies@mandriva.com> 1.0.11-1mdv2010.1
-+ Revision: 497200
-- fix some pb in spec file (import from fedora one)
-- import librdmacm
-
-
