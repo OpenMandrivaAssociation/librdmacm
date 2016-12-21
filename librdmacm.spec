@@ -4,8 +4,8 @@
 %define static %mklibname -s rdmacm
 
 Name:		librdmacm
-Version:	1.0.17
-Release:	9
+Version:	1.0.21
+Release:	1
 Summary:	Userspace RDMA Connection Manager
 Group:		Development/Other
 License:	GPL/BSD
@@ -15,7 +15,7 @@ Source0:	http://www.openfabrics.org/downloads/librdmacm/%{name}-%{version}.tar.g
 BuildRequires:	libibverbs-devel >= 1.1
 BuildRequires:	autoconf
 
-%description 
+%description
 librdmacm provides a userspace RDMA Communication Managment API.
 
 %package -n	%{devname}
@@ -53,7 +53,7 @@ Provides:	rdmacm-static-devel = %{version}-%{release}
 Static version of the librdmacm library.
 
 %prep
-%setup -q 
+%setup -q
 
 %build
 export LDFLAGS="-lpthread"
@@ -70,7 +70,7 @@ autoreconf
 %{_libdir}/rsocket/librspreload.so.*
 
 %files -n %{devname}
-%doc AUTHORS COPYING ChangeLog README
+%doc AUTHORS COPYING README
 %{_libdir}/lib*.so
 %{_libdir}/rsocket/lib*.so
 %{_includedir}/*
