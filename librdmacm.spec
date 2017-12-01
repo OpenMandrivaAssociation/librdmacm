@@ -4,7 +4,7 @@
 %define static %mklibname -s rdmacm
 
 Name:		librdmacm
-Version:	1.0.21
+Version:	1.1.0
 Release:	1
 Summary:	Userspace RDMA Connection Manager
 Group:		Development/Other
@@ -63,7 +63,6 @@ autoreconf
 
 %install
 %makeinstall
-# remove unpackaged files from the buildroot
 
 %files -n %{libname}
 %{_libdir}/librdmacm*.so.*
