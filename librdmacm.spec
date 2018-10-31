@@ -5,7 +5,7 @@
 
 Name:		librdmacm
 Version:	1.1.0
-Release:	1
+Release:	2
 Summary:	Userspace RDMA Connection Manager
 Group:		Development/Other
 License:	GPL/BSD
