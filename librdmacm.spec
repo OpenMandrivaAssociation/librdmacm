@@ -10,6 +10,7 @@ Summary:	Userspace RDMA Connection Manager
 Group:		Development/Other
 License:	GPL/BSD
 Url:		http://www.openfabrics.org/
+# https://github.com/ofiwg/librdmacm
 Source0:	http://www.openfabrics.org/downloads/librdmacm/%{name}-%{version}.tar.gz
 #Source100: librdmacm.rpmlintrc
 BuildRequires:	libibverbs-devel >= 1.1
