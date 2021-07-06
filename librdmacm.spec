@@ -5,7 +5,7 @@
 
 Name:		librdmacm
 Version:	1.1.0
-Release:	2
+Release:	3
 Summary:	Userspace RDMA Connection Manager
 Group:		Development/Other
 License:	GPL/BSD
@@ -60,10 +60,10 @@ Static version of the librdmacm library.
 export LDFLAGS="-lpthread"
 autoreconf
 %configure --enable-static
-%make
+%make_build
 
 %install
-%makeinstall
+%make_install
 
 %files -n %{libname}
 %{_libdir}/librdmacm*.so.*
